@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myproject/state_management/domain/models/user.dart';
-import 'package:myproject/state_management/domain/repositories/api_repository.dart';
+import 'package:myproject/state_management/domain/usecases/register_usecase.dart';
 
 class RegisterController extends GetxController {
-  final ApiRepositoryInterface apiRepositoryInterface;
-  RegisterController(this.apiRepositoryInterface);
+  final RegisterUseCase registerUseCase;
+  final CheckExistUseCase checkExistUseCase;
+  RegisterController(this.registerUseCase, this.checkExistUseCase);
 
   final fullnameTextController = TextEditingController();
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final cpasswordTextController = TextEditingController();
 
-  Future<String> registerUser() async {
-    final fullname = fullnameTextController.text;
+  Future<bool> checkExits(String username) async {
+    return await checkExistUseCase.call(username);
+  }
+
+  Future<String> validateRegister() async {
     final username = usernameTextController.text;
     final password = passwordTextController.text;
     final confirmpassword = cpasswordTextController.text;
@@ -22,16 +26,19 @@ class RegisterController extends GetxController {
       // Check confirm password
       if (password != confirmpassword) return '3';
       // Check exists account
-      bool check = await apiRepositoryInterface.checkRegisterUser(
-          RegisterUser(fullname, username, password, confirmpassword));
-      if (check) {
-        return '2';
-      }
-      //Register
-      apiRepositoryInterface.registerUser(
-          RegisterUser(fullname, username, password, confirmpassword));
+      if (await checkExits(username)) return '2';
       return '0';
     }
     return '1';
+  }
+
+  Future<void> registerUser() async {
+    final fullname = fullnameTextController.text;
+    final username = usernameTextController.text;
+    final password = passwordTextController.text;
+    final confirmpassword = cpasswordTextController.text;
+    //Register
+    await registerUseCase
+        .call(RegisterUser(fullname, username, password, confirmpassword));
   }
 }

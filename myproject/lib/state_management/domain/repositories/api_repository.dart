@@ -5,5 +5,5 @@ abstract class ApiRepositoryInterface {
   Future<LoginResponse> login(LoginRequest login);
   Future<void> logout(String token);
   Future<void> registerUser(RegisterUser register);
-  Future<bool> checkRegisterUser(RegisterUser register);
+  Future<bool> checkExistUser(String username);
 }
