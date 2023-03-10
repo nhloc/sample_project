@@ -7,7 +7,7 @@ import 'package:myproject/state_management/presentation/todo/todo_controller.dar
 class TodoScreen extends GetWidget<ToDoController> {
   TodoScreen({super.key});
   final ToDoController toDoController =
-      ToDoController(Get.put(Get.put(ItemRepositoryImpl())));
+      ToDoController(Get.put(Get.put(TodoRepositoryImpl())));
 
   void getData() {
     toDoController.getData();

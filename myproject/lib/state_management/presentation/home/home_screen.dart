@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomePage extends State<HomeScreen> {
   final HomeController homeController =
-      HomeController(Get.put(Get.put(ItemRepositoryImpl())));
+      HomeController(Get.put(Get.put(TodoRepositoryImpl())));
   int _selectedIndex = 0;
   List<Todo> todos = [];
   void _onItemTapped(int index) {
