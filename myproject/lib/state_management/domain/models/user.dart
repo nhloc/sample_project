@@ -5,6 +5,19 @@ class User {
   final String password;
 }
 
+class LoginRequest {
+  const LoginRequest(this.username, this.password);
+  final String username;
+  final String password;
+}
+
+class LoginResponse {
+  const LoginResponse(this.token, this.user);
+  final String token;
+  final User user;
+}
+
+
 class RegisterUser {
   RegisterUser(
       this.fullname, this.username, this.password, this.confirmpassword);

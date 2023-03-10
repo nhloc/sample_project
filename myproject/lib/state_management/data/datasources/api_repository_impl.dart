@@ -1,8 +1,6 @@
 import 'package:myproject/state_management/domain/exceptions/auth_exception.dart';
 import 'package:myproject/state_management/domain/models/user.dart';
 import 'package:myproject/state_management/domain/repositories/api_repository.dart';
-import 'package:myproject/state_management/domain/response/login_response.dart';
-import 'package:myproject/state_management/domain/request/login_request.dart';
 
 final List<LoginResponse> listUser = [];
 
@@ -59,12 +57,12 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> checkRegisterUser(RegisterUser register) async {
-    if (register.username == 'nhloc' || register.username == 'admin') {
+  Future<bool> checkExistUser(String username) async {
+    if (username == 'nhloc' || username == 'admin') {
       return true;
     } else if (listUser.isNotEmpty) {
       for (int i = 0; i < listUser.length; i++) {
-        if (register.username == listUser[i].user.username) {
+        if (username == listUser[i].user.username) {
           return true;
         }
       }

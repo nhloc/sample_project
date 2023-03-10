@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myproject/state_management/data/datasources/api_repository_impl.dart';
+import 'package:myproject/state_management/domain/repositories/api_repository.dart';
 import 'package:myproject/state_management/presentation/register/register_controller.dart';
 import 'package:myproject/state_management/presentation/routes/app_routes.dart';
 
-class RegisterScreen extends StatelessWidget {
-  final RegisterController registerController =
-      RegisterController(Get.put(Get.put(ApiRepositoryImpl())));
+class RegisterScreen extends GetWidget<RegisterController> {
+  final ApiRepositoryInterface repository =
+      Get.put<ApiRepositoryInterface>(ApiRepositoryImpl());
+
   RegisterScreen({super.key});
   void registerUser() async {
-    final result = await registerController.registerUser();
+    final result = await controller.validateRegister();
     if (result == '0') {
+      controller.registerUser();
       Get.snackbar('Register', 'Account successfully created!');
       Get.offNamed(AppRoutes.login);
     } else if (result == '1') {
@@ -43,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
-                        controller: registerController.fullnameTextController,
+                        controller: controller.fullnameTextController,
                         decoration: const InputDecoration(
                             border: InputBorder.none, hintText: 'Full Name')),
                   ),
@@ -60,7 +63,7 @@ class RegisterScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
-                      controller: registerController.usernameTextController,
+                      controller: controller.usernameTextController,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: 'Username'),
                     ),
@@ -79,7 +82,7 @@ class RegisterScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
                       obscureText: true,
-                      controller: registerController.passwordTextController,
+                      controller: controller.passwordTextController,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: 'Password'),
                     ),
@@ -98,7 +101,7 @@ class RegisterScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
                       obscureText: true,
-                      controller: registerController.cpasswordTextController,
+                      controller: controller.cpasswordTextController,
                       decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Confirm Password'),
