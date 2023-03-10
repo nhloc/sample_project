@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:myproject/state_management/domain/models/todo.dart';
-import 'package:myproject/state_management/domain/repositories/item_repository.dart';
+import 'package:myproject/state_management/domain/repositories/todo_repository.dart';
 
 class ToDoController extends GetxController {
   ItemRepositoryInterface itemRepositoryInterface;
