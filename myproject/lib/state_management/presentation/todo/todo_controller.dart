@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/domain/models/items.dart';
+import 'package:myproject/state_management/domain/models/todo.dart';
 import 'package:myproject/state_management/domain/repositories/item_repository.dart';
 
 class ToDoController extends GetxController {
@@ -9,7 +9,7 @@ class ToDoController extends GetxController {
 
   TextEditingController nameWorkController = TextEditingController();
   TextEditingController descWorkController = TextEditingController();
-  var data = RxList<Items>([]).obs;
+  var data = RxList<Todo>([]).obs;
   @override
   void onInit() {
     super.onInit();
@@ -17,7 +17,7 @@ class ToDoController extends GetxController {
   }
 
   void getData() async {
-    final listData = await itemRepositoryInterface.getItems();
+    final listData = await itemRepositoryInterface.getTodo();
     if (listData.isNotEmpty) {
       data.value.clear();
       data.value.addAll(listData);
@@ -31,7 +31,7 @@ class ToDoController extends GetxController {
       return false;
     }
     final listData = await itemRepositoryInterface
-        .addItem(Items(data.value.length + 1, name, describe));
+        .addTodo(Todo(data.value.length + 1, name, describe));
     nameWorkController.clear();
     descWorkController.clear();
     data.value.clear();

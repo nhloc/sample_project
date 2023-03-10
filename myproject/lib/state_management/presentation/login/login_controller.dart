@@ -1,14 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:myproject/state_management/data/datasources/local_repository_impl.dart';
 import 'package:myproject/state_management/domain/exceptions/auth_exception.dart';
-import 'package:myproject/state_management/domain/repositories/api_repository.dart';
+import 'package:myproject/state_management/domain/models/user.dart';
 import 'package:myproject/state_management/domain/repositories/local_storage_repository.dart';
-import 'package:myproject/state_management/domain/request/login_request.dart';
+import 'package:myproject/state_management/domain/usecases/login_usecase.dart';
 
 class LoginController extends GetxController {
-  final LocalRepositoryInterface localRepositoryInterface;
-  final ApiRepositoryInterface apiRepositoryInterface;
-  LoginController(this.localRepositoryInterface, this.apiRepositoryInterface);
+  final LocalRepositoryInterface localstorage = Get.put(LocalRepositoryImpl());
+  final LoginUseCase loginUseCase;
+  LoginController(this.loginUseCase);
 
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -19,9 +20,9 @@ class LoginController extends GetxController {
 
     try {
       final loginReponse =
-          await apiRepositoryInterface.login(LoginRequest(username, password));
-      await localRepositoryInterface.saveToken(loginReponse.token);
-      await localRepositoryInterface.saveUser(loginReponse.user);
+          await loginUseCase.call(LoginRequest(username, password));
+      await localstorage.saveToken(loginReponse.token);
+      await localstorage.saveUser(loginReponse.user);
       return true;
     } on AuthException catch (_) {
       return false;

@@ -1,8 +1,6 @@
 import 'package:myproject/state_management/domain/exceptions/auth_exception.dart';
 import 'package:myproject/state_management/domain/models/user.dart';
 import 'package:myproject/state_management/domain/repositories/api_repository.dart';
-import 'package:myproject/state_management/domain/response/login_response.dart';
-import 'package:myproject/state_management/domain/request/login_request.dart';
 
 final List<LoginResponse> listUser = [];
 

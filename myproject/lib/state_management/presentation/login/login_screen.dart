@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myproject/state_management/data/datasources/api_repository_impl.dart';
-import 'package:myproject/state_management/data/datasources/local_repository_impl.dart';
+import 'package:myproject/state_management/domain/repositories/api_repository.dart';
 import 'package:myproject/state_management/presentation/login/login_controller.dart';
 import 'package:myproject/state_management/presentation/routes/app_routes.dart';
 
-class LoginScreen extends StatelessWidget {
-  final LoginController homeController = LoginController(
-      Get.put(Get.put(LocalRepositoryImpl())),
-      Get.put(Get.put(ApiRepositoryImpl())));
+class LoginScreen extends GetWidget<LoginController> {
+  final apiRepository = Get.put<ApiRepositoryInterface>(ApiRepositoryImpl());
   LoginScreen({super.key});
   void login() async {
-    final result = await homeController.login();
+    final result = await controller.login();
     if (result) {
       Get.offAllNamed(AppRoutes.home);
     } else {
@@ -57,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: TextField(
-                        controller: homeController.usernameTextController,
+                        controller: controller.usernameTextController,
                         decoration: const InputDecoration(
                             border: InputBorder.none, hintText: 'Username'),
                       ),
@@ -75,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
                         obscureText: true,
-                        controller: homeController.passwordTextController,
+                        controller: controller.passwordTextController,
                         decoration: const InputDecoration(
                             border: InputBorder.none, hintText: 'Password')),
                   ),

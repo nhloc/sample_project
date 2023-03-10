@@ -1,18 +1,17 @@
-import 'package:myproject/state_management/domain/models/items.dart';
+import 'package:myproject/state_management/domain/models/todo.dart';
 import 'package:myproject/state_management/domain/repositories/item_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-final List<Items> listItems = [];
+final List<Todo> listItems = [];
 
 class ItemRepositoryImpl extends ItemRepositoryInterface {
   @override
-  Future<List<Items>> addItem(Items item) async {
+  Future<List<Todo>> addTodo(Todo item) async {
     listItems.add(item);
     return listItems;
   }
 
   @override
-  Future<List<Items>> getItems() async {
+  Future<List<Todo>> getTodo() async {
     return listItems;
   }
 }

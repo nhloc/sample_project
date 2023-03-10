@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myproject/state_management/data/datasources/item_repository_impl.dart';
-import 'package:myproject/state_management/domain/models/items.dart';
+import 'package:myproject/state_management/domain/models/todo.dart';
 import 'package:myproject/state_management/presentation/home/home_controller.dart';
 import 'package:myproject/state_management/presentation/todo/todo_screen.dart';
 import 'package:myproject/state_management/presentation/user/user_screen.dart';
@@ -16,7 +16,7 @@ class _HomePage extends State<HomeScreen> {
   final HomeController homeController =
       HomeController(Get.put(Get.put(ItemRepositoryImpl())));
   int _selectedIndex = 0;
-  List<Items> todos = [];
+  List<Todo> todos = [];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
