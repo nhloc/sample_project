@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:myproject/state_management/domain/models/items.dart';
 import 'package:myproject/state_management/domain/repositories/item_repository.dart';
 
-class ToDosController extends GetxController {
+class ToDoController extends GetxController {
   ItemRepositoryInterface itemRepositoryInterface;
-  ToDosController(this.itemRepositoryInterface);
+  ToDoController(this.itemRepositoryInterface);
 
   TextEditingController nameWorkController = TextEditingController();
   TextEditingController descWorkController = TextEditingController();

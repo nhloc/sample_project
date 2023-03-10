@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:myproject/state_management/data/datasources/item_repository_impl.dart';
 import 'package:myproject/state_management/presentation/home/home_screen.dart';
 import 'package:myproject/state_management/presentation/home/home_screen_binding.dart';
-import 'package:myproject/state_management/presentation/home/todo/todo_screen.dart';
-import 'package:myproject/state_management/presentation/home/todo/todo_screen_binding.dart';
+import 'package:myproject/state_management/presentation/todo/todo_screen.dart';
+import 'package:myproject/state_management/presentation/todo/todo_screen_binding.dart';
 import 'package:myproject/state_management/presentation/login/login_screen.dart';
 import 'package:myproject/state_management/presentation/login/login_screen_binding.dart';
 import 'package:myproject/state_management/presentation/register/register_screen.dart';
@@ -12,11 +12,11 @@ import 'package:myproject/state_management/presentation/splash/splash_screen.dar
 import 'package:myproject/state_management/presentation/splash/splash_screen_binding.dart';
 
 class AppRoutes {
-  static final String splash = '/splash';
-  static final String login = '/login';
-  static final String register = '/register';
-  static final String home = '/home';
-  static final String todo = '/todo';
+  static const String splash = '/splash';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String home = '/home';
+  static const String todo = '/todo';
 }
 
 class AppPages {
@@ -40,7 +40,7 @@ class AppPages {
     ),
     GetPage(
         name: AppRoutes.todo,
-        page: () => TodosScreen(),
+        page: () => TodoScreen(),
         binding: TodosBinding()),
   ];
 }
