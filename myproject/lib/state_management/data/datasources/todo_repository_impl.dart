@@ -3,7 +3,7 @@ import 'package:myproject/state_management/domain/repositories/todo_repository.d
 
 final List<Todo> listItems = [];
 
-class ItemRepositoryImpl extends ItemRepositoryInterface {
+class ItemRepositoryImpl extends TodoRepositoryInterface {
   @override
   Future<List<Todo>> addTodo(Todo item) async {
     listItems.add(item);

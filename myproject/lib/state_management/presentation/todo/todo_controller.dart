@@ -4,7 +4,7 @@ import 'package:myproject/state_management/domain/models/todo.dart';
 import 'package:myproject/state_management/domain/repositories/todo_repository.dart';
 
 class ToDoController extends GetxController {
-  ItemRepositoryInterface itemRepositoryInterface;
+  TodoRepositoryInterface itemRepositoryInterface;
   ToDoController(this.itemRepositoryInterface);
 
   TextEditingController nameWorkController = TextEditingController();
