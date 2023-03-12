@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/data/datasources/local_repository_impl.dart';
-import 'package:myproject/state_management/domain/exceptions/auth_exception.dart';
-import 'package:myproject/state_management/domain/models/user.dart';
+import 'package:myproject/state_management/data/local/local_repository_impl.dart';
+import 'package:myproject/state_management/core/exceptions/auth_exception.dart';
+import 'package:myproject/state_management/domain/entities/user.dart';
 import 'package:myproject/state_management/domain/repositories/local_storage_repository.dart';
 import 'package:myproject/state_management/domain/usecases/login_usecase.dart';
 
@@ -19,10 +19,10 @@ class LoginController extends GetxController {
     final password = passwordTextController.text;
 
     try {
-      final loginReponse =
+      final user =
           await loginUseCase.call(LoginRequest(username, password));
-      await localstorage.saveToken(loginReponse.token);
-      await localstorage.saveUser(loginReponse.user);
+      await localstorage.saveToken(user.username);
+      await localstorage.saveUser(user);
       return true;
     } on AuthException catch (_) {
       return false;

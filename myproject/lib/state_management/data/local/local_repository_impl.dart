@@ -1,4 +1,4 @@
-import 'package:myproject/state_management/domain/models/user.dart';
+import 'package:myproject/state_management/domain/entities/user.dart';
 import 'package:myproject/state_management/domain/repositories/local_storage_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +34,7 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
     final fullname = sharedPreferences.getString(_pref_fullname) ?? "";
     final username = sharedPreferences.getString(_pref_username) ?? "";
     final password = sharedPreferences.getString(_pref_password) ?? "";
-    return User(fullname, username, password);
+    return User(0,fullname, username, password);
   }
 
   @override

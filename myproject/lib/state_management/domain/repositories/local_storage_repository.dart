@@ -1,4 +1,4 @@
-import 'package:myproject/state_management/domain/models/user.dart';
+import 'package:myproject/state_management/domain/entities/user.dart';
 
 abstract class LocalRepositoryInterface {
   Future<String> getToken();

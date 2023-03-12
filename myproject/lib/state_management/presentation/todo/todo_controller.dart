@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/domain/models/todo.dart';
+import 'package:myproject/state_management/domain/entities/todo.dart';
 import 'package:myproject/state_management/domain/repositories/todo_repository.dart';
 
 class ToDoController extends GetxController {
-  TodoRepositoryInterface itemRepositoryInterface;
-  ToDoController(this.itemRepositoryInterface);
+  TodoRepositoryInterface repositoryInterface;
+  ToDoController(this.repositoryInterface);
 
   TextEditingController nameWorkController = TextEditingController();
   TextEditingController descWorkController = TextEditingController();
@@ -17,7 +17,7 @@ class ToDoController extends GetxController {
   }
 
   void getData() async {
-    final listData = await itemRepositoryInterface.getTodo();
+    final listData = await repositoryInterface.getTodo();
     if (listData.isNotEmpty) {
       data.value.clear();
       data.value.addAll(listData);
@@ -30,12 +30,19 @@ class ToDoController extends GetxController {
     if (name == '') {
       return false;
     }
-    final listData = await itemRepositoryInterface
-        .addTodo(Todo(data.value.length + 1, name, describe));
+    final listData = await repositoryInterface
+        .addTodo(Todo(null, name, describe));
     nameWorkController.clear();
     descWorkController.clear();
     data.value.clear();
     data.value.addAll(listData);
     return true;
+  }
+
+  Future<void> deleteTodo(int index) async {
+    final int idDelete = data.value[index].id!;
+    final listData = await repositoryInterface.deleteTodo(idDelete);
+    data.value.clear();
+    data.value.addAll(listData);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/domain/models/user.dart';
+import 'package:myproject/state_management/domain/entities/user.dart';
 import 'package:myproject/state_management/domain/usecases/register_usecase.dart';
 
 class RegisterController extends GetxController {
@@ -36,9 +36,8 @@ class RegisterController extends GetxController {
     final fullname = fullnameTextController.text;
     final username = usernameTextController.text;
     final password = passwordTextController.text;
-    final confirmpassword = cpasswordTextController.text;
     //Register
     await registerUseCase
-        .call(RegisterUser(fullname, username, password, confirmpassword));
+        .call(User(0, fullname, username, password));
   }
 }

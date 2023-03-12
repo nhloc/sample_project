@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/data/datasources/todo_repository_impl.dart';
-import 'package:myproject/state_management/presentation/todo/detail_screen.dart';
+import 'package:myproject/state_management/data/repositories/todo_repository_impl.dart';
 import 'package:myproject/state_management/presentation/todo/todo_controller.dart';
 
 class TodoScreen extends GetWidget<ToDoController> {
@@ -26,6 +25,7 @@ class TodoScreen extends GetWidget<ToDoController> {
       appBar: AppBar(
         title: const Text('Todo Page'),
       ),
+      backgroundColor: const Color.fromARGB(255, 87, 152, 226),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const SizedBox(height: 40),
         // Name Todo
@@ -81,29 +81,45 @@ class TodoScreen extends GetWidget<ToDoController> {
             )),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Text('List ToDo',
-                  style: TextStyle(fontSize: 16, color: Colors.blue))
-            ])),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Text('List ToDo',
+                      style: TextStyle(fontSize: 16, color: Colors.blue))
+                ])),
         Expanded(
             child: Obx(
           () => ListView.builder(
             itemCount: toDoController.data.value.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(toDoController.data.value[index].name),
-                subtitle: Text(toDoController.data.value[index].describe),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DetailScreen(),
-                      settings: RouteSettings(
-                        arguments: toDoController.data.value[index],
+              return Card(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Text(toDoController.data.value[index].name,
+                                  style: const TextStyle(fontSize: 16)),
+                              Text(toDoController.data.value[index].description)
+                            ],
+                          )
+                        ],
                       ),
-                    ),
-                  );
-                },
+                      ElevatedButton(
+                          onPressed: () {
+                            toDoController.deleteTodo(index);
+                          },
+                          child: const Text('Delele'))
+                    ],
+                  ),
+                ),
               );
             },
           ),

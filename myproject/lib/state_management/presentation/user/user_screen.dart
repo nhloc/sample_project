@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/data/datasources/local_repository_impl.dart';
+import 'package:myproject/state_management/data/local/local_repository_impl.dart';
 import 'package:myproject/state_management/presentation/routes/app_routes.dart';
 
 
