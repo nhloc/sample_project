@@ -1,6 +1,6 @@
 class User {
   User(this.id, this.fullname, this.username, this.password);
-  final int id;
+  final int? id;
   final String fullname;
   final String username;
   final String password;

@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/data/repositories/api_repository_impl.dart';
-import 'package:myproject/state_management/domain/repositories/api_repository.dart';
 import 'package:myproject/state_management/presentation/register/register_controller.dart';
 import 'package:myproject/state_management/presentation/routes/app_routes.dart';
 
 class RegisterScreen extends GetWidget<RegisterController> {
-  final ApiRepositoryInterface repository =
-      Get.put<ApiRepositoryInterface>(ApiRepositoryImpl());
-
   RegisterScreen({super.key});
   void registerUser() async {
     final result = await controller.validateRegister();

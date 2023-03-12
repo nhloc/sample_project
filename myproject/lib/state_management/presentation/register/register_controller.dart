@@ -38,6 +38,6 @@ class RegisterController extends GetxController {
     final password = passwordTextController.text;
     //Register
     await registerUseCase
-        .call(User(0, fullname, username, password));
+        .call(User(null, fullname, username, password));
   }
 }

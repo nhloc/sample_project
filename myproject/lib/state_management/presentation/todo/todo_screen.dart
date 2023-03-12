@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myproject/state_management/data/repositories/todo_repository_impl.dart';
+import 'package:myproject/state_management/domain/usecases/todo_usecase.dart';
 import 'package:myproject/state_management/presentation/todo/todo_controller.dart';
 
 class TodoScreen extends GetWidget<ToDoController> {
   TodoScreen({super.key});
   final ToDoController toDoController =
-      ToDoController(Get.put(Get.put(TodoRepositoryImpl())));
+      ToDoController(Get.put<TodoGetDataUseCase>(TodoGetDataUseCase(Get.find())),Get.put<TodoAddUseCase>(TodoAddUseCase(Get.find())), Get.put<TodoDeleteUseCase>(TodoDeleteUseCase(Get.find())));
 
   void getData() {
     toDoController.getData();
