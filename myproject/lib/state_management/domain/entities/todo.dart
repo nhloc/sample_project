@@ -1,7 +1,4 @@
-import 'package:myproject/state_management/domain/entities/ientity.dart';
-
-class Todo{
-  
+class Todo {
   const Todo(this.id, this.name, this.description);
   final int? id;
   final String name;
