@@ -4,7 +4,9 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseHelper {
   static const _databaseName = "myDatabase.db";
   static const _databaseVersion = 1;
+  // ignore: constant_identifier_names
   static const table_user = 'ms_users';
+  // ignore: constant_identifier_names
   static const table_todo = 'ms_todos';
 
   DatabaseHelper._privateConstructor();
@@ -22,12 +24,12 @@ class DatabaseHelper {
     var dir = await getDatabasesPath();
     var path = dir + _databaseName;
     return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+        version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-          CREATE TABLE $table_user (
+          CREATE TABLE IF NOT EXISTS $table_user (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             fullname TEXT NOT NULL,
             username TEXT NOT NULL,
@@ -35,12 +37,19 @@ class DatabaseHelper {
           )
           ''');
     await db.execute('''
-          CREATE TABLE $table_todo (
+          CREATE TABLE IF NOT EXISTS $table_todo (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             name TEXT NOT NULL,
             description TEXT NOT NULL
           )
           ''');
+  }
+    Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < _databaseVersion) {
+          await db.execute(
+            '''ALTER TABLE $table_todo ADD COLUMN completed INTEGER DEFAULT 0''',
+          );
+        }
   }
 
   Future<int> insertTable(String tablename, Map<String, dynamic> row) async {
