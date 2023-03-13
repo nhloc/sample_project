@@ -44,12 +44,13 @@ class DatabaseHelper {
           )
           ''');
   }
-    Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < _databaseVersion) {
-          await db.execute(
-            '''ALTER TABLE $table_todo ADD COLUMN completed INTEGER DEFAULT 0''',
-          );
-        }
+      await db.execute(
+        '''ALTER TABLE $table_todo ADD COLUMN completed INTEGER DEFAULT 0''',
+      );
+    }
   }
 
   Future<int> insertTable(String tablename, Map<String, dynamic> row) async {
